@@ -1,1 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>A Simple Shiny Project</title>
+  <meta charset="utf-8">
+  <meta name="description" content="A Simple Shiny Project">
+  <meta name="author" content="mandyzzz">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
 
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>A Simple Shiny Project</h1>
+    <h2>slidify practice</h2>
+    <p>mandyzzz<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>What is BMI?</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The body mass index (BMI) or Quetelet index is a value derived from the mass (weight) and height of an individual. The BMI is defined as the body mass divided by the square of the body height, and is universally expressed in units of kg/m2, resulting from mass in kilograms and height in metres.</p>
+
+<p>(Source: wikipedia)</p>
+
+<h2>Using shiny to build an application of BMI calcalation.</h2>
+
+<p>A shiny project should be consisted of two parts:</p>
+
+<ol>
+<li>ui.R controls how it looks.</li>
+<li>server.R controls what it does.</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>ui.R</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">library(shiny)
+shinyUI(pageWithSidebar(
+  headerPanel(&quot;Calculate Your BMI Value:&quot;),
+  sidebarPanel(
+    numericInput(&#39;height&#39;, &#39;Your Height in Meter&#39;, 0, min = 0, max = 5, step = 0.001),
+    numericInput(&#39;weight&#39;, &#39;Your Weight in Kilogram&#39;, 0, min = 0, max = 300, step = 0.001),
+    submitButton(&#39;submit&#39;)
+    # ask the user to enter his/her height and weight
+  ),
+  mainPanel(
+    h4(&#39;Your Calculated BMI Value:&#39;),
+    verbatimTextOutput(&quot;BMI&quot;),
+    h6(&#39;Find Your Weight Category:Underweight = &lt;18.5, Normal weight = 18.5-24.9, 
+       Overweight = 25-29.9, Obesity = BMI of 30 or greater.&#39;)
+    )
+    # output information has both the value and the reference for BMI value
+))
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>server.R</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">library(shiny)
+shinyServer(
+  function(input, output) {
+    output$BMI &lt;- renderPrint(round({input$weight/((input$height)^2)},3))
+    # calculation of BMI value, which is devide weight by the sqaure of height
+    }
+)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Where to find this shiny project and the code?</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><a href="https://github.com/mandyzzz/develop-data-products_project-1">https://github.com/mandyzzz/develop-data-products_project-1</a>
+<a href="https://mandyzzz.shinyapps.io/Calculation_BMI">https://mandyzzz.shinyapps.io/Calculation_BMI</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='What is BMI?'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='ui.R'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='server.R'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Where to find this shiny project and the code?'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
